@@ -39,12 +39,12 @@
 0046  @cinit
 
 Project Files:
-    F:\Chichielectronica\Proyectos\contador Vehicular Unicentro\testContador.c
+    F:\Chichielectronica\Proyectos\contador Vehicular Unicentro\testContador.C
     F:\Chichielectronica\Proyectos\contador Vehicular Unicentro\testContador.h
     C:\PROGRA~2\PICC\devices\16F88.h
 
 Units:
-    testContador.c (main)
+    testContador (main)
 
 Compiler Settings:
     Processor:      PIC16F88
