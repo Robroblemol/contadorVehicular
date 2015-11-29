@@ -1,12 +1,19 @@
 #include <testContador.h>
 
-int  countEnt,//Almacena la cantidad de entradas 
-     countSal,//Almacena la cantidad de salidas   
+// comandos para compilar desde la linea de comandos de ccs
+/* ccsc para llamar al compilador
+    +df opcion para crear el .cof (archivo simulacion)
+    +p mantiene la centana del compilador abierta (sirve para ver errores)
+    ejemplo: ccsc +df +p testContador // compila el preoyecto
+*/
+
+int  countEnt,//Almacena la cantidad de entradas
+     countSal,//Almacena la cantidad de salidas
      datoPuerto; //declaroo variable para almacenar lo presente en el puerto
-boolean flag_ent,//indica si se realizó una entrada 
-        flag_sal; //indica si se realizó una salida
+boolean flag_ent=FALSE,//indica si se realizó una entrada
+        flag_sal=FALSE; //indica si se realizó una salida
 #int_RB
-RB_isr() {
+RB_isr(void) {
   datoPuerto= input_b();// leo el puerto b
    if(bit_test(datoPuerto,4)==1&&bit_test(datoPuerto ,5)==0) flag_ent=true;
    if(bit_test(datoPuerto,6)==1&&bit_test(datoPuerto,7)==0) flag_sal=true;
@@ -30,6 +37,7 @@ void main()
    setup_oscillator(False);
 
   while (true){
+    datoPuerto= input_b();// leo el puerto b
    if(flag_ent==true&&bit_test(datoPuerto,5)==true) countEnt++;
    if (flag_sal==true&&bit_test(datoPuerto,7)==true)countSal++;
   }
