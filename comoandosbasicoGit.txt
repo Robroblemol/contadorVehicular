@@ -32,4 +32,4 @@ git --help // ver los comandos disponibles en git
 git log // para ver los cambio realizados
 git log --oneline//para ver los cambios realizado resumido
 git add .// para subir todos los archivos modificados a repositorio
-  
+git push <identificador> rama  
