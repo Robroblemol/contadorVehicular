@@ -1,9 +1,10 @@
 [PROJECT]
-Target=Test contador.hex
+Target=Testcontador.hex
 Development_Mode=
 Processor_Text=PIC16F88
 ToolSuite=CCS
-[Test contador]
+Processor=0x688F
+[Testcontador]
 Type=4
 Path=
 FileList=
@@ -11,10 +12,16 @@ BuildTool=
 OptionString=
 AdditionalOptionString=
 [mru-list]
-1=Test contador
+1=Testcontador
 [Windows]
 0=0000 %S 0 0 796 451 3 0
+[Opened Files]
+1=F:\Chichielectronica\Proyectos\contador Vehicular Unicentro\Testcontador.c
+2=
+[Target Data]
+OptionString=-p +FM
+FileList=F:\Chichielectronica\Proyectos\contador Vehicular Unicentro\Testcontador.c
 [Units]
-Link=0
 Count=1
-1=Test contador.c
+1=Testcontador.c (main)
+Link=0
