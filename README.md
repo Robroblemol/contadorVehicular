@@ -1,5 +1,5 @@
 # contadorVehicular
-Código en PICC para contador de vehículos 
+Código en PICC para contador de vehículos
 
 utilizando el compilador ccsc desde la line de comandos, sin ide de desarrollo ccs
 cambiandola por editor de texto externo (Sublime text 2 o en mi caso Atom)
@@ -8,6 +8,7 @@ cambiandola por editor de texto externo (Sublime text 2 o en mi caso Atom)
 /* ccsc para llamar al compilador
     +df opcion para crear el .cof (archivo simulacion)
     +p mantiene la centana del compilador abierta (sirve para ver errores)
+    +pe para mantener la ventana abierta si hay un error en la compilacion
     ejemplo: ccsc +df +p testContador // compila el preoyecto
 */
-para ver los errores se debbe verificaar el archivo .err
+para ver los errores se debbe verificar el archivo .err

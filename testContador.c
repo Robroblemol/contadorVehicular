@@ -4,14 +4,15 @@
 /* ccsc para llamar al compilador
     +df opcion para crear el .cof (archivo simulacion)
     +p mantiene la centana del compilador abierta (sirve para ver errores)
+    +pe para mantener la ventana abierta si hay un error en la compilacion
     ejemplo: ccsc +df +p testContador // compila el preoyecto
 */
 
 int  countEnt,//Almacena la cantidad de entradas
      countSal,//Almacena la cantidad de salidas
      datoPuerto; //declaroo variable para almacenar lo presente en el puerto
-boolean flag_ent=FALSE,//indica si se realizó una entrada
-        flag_sal=FALSE; //indica si se realizó una salida
+boolean flag_ent=false,//indica si se realizó una entrada
+        flag_sal=false; //indica si se realizó una salida
 #int_RB
 RB_isr(void) {
   datoPuerto= input_b();// leo el puerto b
