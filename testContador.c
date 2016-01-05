@@ -11,6 +11,7 @@ int const totalPlaza =10;//cantidad total de plazas
 signed long countTot = 10;//la cantidad inicial de plazas disponibles
 int  countEnt,//Almacena la cantidad de entradas
      countSal,//Almacena la cantidad de salidas
+     countShow,
      datoPuerto; //declaro variable para almacenar lo presente en el puerto
 boolean flag_ent=false,//indica si se realizó una entrada
         flag_sal=false; //indica si se realizó una salida
@@ -26,9 +27,10 @@ void RB_isr(void) {
   //calculamos la cantidad de vehiculos disponibles
   if(flag_count == false) countTot--;
   else countTot++;
-  if (countTot>=totalPlaza)countTot=10;
-  if(countTot<=0)countTot=0;
-  printf("Plazas disponibles = %u\r\n",countTot);
+  if (countTot<=totalPlaza)countShow=countTot;
+  if(countTot<0)countShow=0;
+  printf("Contador Total = %u\r\n",countTot);
+  printf("Plazas disponibles = %u\r\n",countShow);
 
 }
 
@@ -52,13 +54,13 @@ void main()
     datoPuerto= input_b();// leo el puerto b
    if(flag_ent==true&&bit_test(datoPuerto,5)==true){
      countEnt++;
-     printf("Dato contador entrada = %u\r\n",countEnt);
+     //printf("Dato contador entrada = %u\r\n",countEnt);
      flag_ent=False;
      plazas_disponibles(false);
    }
    if (flag_sal==true&&bit_test(datoPuerto,7)==true){
      countSal++;
-     printf("Dato contador salida = %u\r\n",countSal);
+     //printf("Dato contador salida = %u\r\n",countSal);
      flag_sal=False;
      plazas_disponibles(true);
    }
