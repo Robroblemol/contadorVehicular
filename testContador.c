@@ -7,19 +7,27 @@
     +pe para mantener la ventana abierta si hay un error en la compilacion
     ejemplo: ccsc +df +p testContador // compila el preoyecto
 */
-
+int const totalPlaza =200
 int  countEnt,//Almacena la cantidad de entradas
      countSal,//Almacena la cantidad de salidas
-     datoPuerto; //declaroo variable para almacenar lo presente en el puerto
+     countTot = 200,//la cantidad total de plazas disponibles
+     datoPuerto; //declaro variable para almacenar lo presente en el puerto
 boolean flag_ent=false,//indica si se realizó una entrada
         flag_sal=false; //indica si se realizó una salida
 #int_RB
-RB_isr(void) {
+void RB_isr(void) {
+  output_toggle (led0);
   datoPuerto= input_b();// leo el puerto b
    if(bit_test(datoPuerto,4)==1&&bit_test(datoPuerto ,5)==0) flag_ent=true;
    if(bit_test(datoPuerto,6)==1&&bit_test(datoPuerto,7)==0) flag_sal=true;
 }
 
+ plazas_disponibles(boolean flag_count) {
+  //calculamos la cantidad de vehiculos disponibles
+  if(flag_count == false) countTot--;
+  else countTot++;
+  printf("Plazas disponibles = %u\r\n",countTot);
+}
 
 
 void main()
@@ -39,7 +47,17 @@ void main()
 
   while (true){
     datoPuerto= input_b();// leo el puerto b
-   if(flag_ent==true&&bit_test(datoPuerto,5)==true) countEnt++;
-   if (flag_sal==true&&bit_test(datoPuerto,7)==true)countSal++;
+   if(flag_ent==true&&bit_test(datoPuerto,5)==true){
+     countEnt++;
+     printf("Dato contador entrada = %u\r\n",countEnt);
+     flag_ent=False;
+     plazas_disponibles(false);
+   }
+   if (flag_sal==true&&bit_test(datoPuerto,7)==true){
+     countSal++;
+     printf("Dato contador salida = %u\r\n",countSal);
+     flag_sal=False;
+     plazas_disponibles(true);
+   }
   }
 }

@@ -14,6 +14,7 @@
 #FUSES FCMEN                 	//Fail-safe clock monitor enabled
 #FUSES IESO                  	//Internal External Switch Over mode enabled
 
-#use delay(clock=20000000)
-#use rs232(baud=9600,parity=N,xmit=PIN_A3,rcv=PIN_A2,bits=8)
+#use delay(clock=8000000)
+#use rs232(baud=9600,parity=N,xmit=PIN_A1,rcv=PIN_A2,bits=8)
 
+#define led0 pin_A0
