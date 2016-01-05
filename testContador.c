@@ -7,10 +7,10 @@
     +pe para mantener la ventana abierta si hay un error en la compilacion
     ejemplo: ccsc +df +p testContador // compila el preoyecto
 */
-int const totalPlaza =200
+int const totalPlaza =10;//cantidad total de plazas
+signed long countTot = 10;//la cantidad inicial de plazas disponibles
 int  countEnt,//Almacena la cantidad de entradas
      countSal,//Almacena la cantidad de salidas
-     countTot = 200,//la cantidad total de plazas disponibles
      datoPuerto; //declaro variable para almacenar lo presente en el puerto
 boolean flag_ent=false,//indica si se realizó una entrada
         flag_sal=false; //indica si se realizó una salida
@@ -22,11 +22,14 @@ void RB_isr(void) {
    if(bit_test(datoPuerto,6)==1&&bit_test(datoPuerto,7)==0) flag_sal=true;
 }
 
- plazas_disponibles(boolean flag_count) {
+ void plazas_disponibles(boolean flag_count) {
   //calculamos la cantidad de vehiculos disponibles
   if(flag_count == false) countTot--;
   else countTot++;
+  if (countTot>=totalPlaza)countTot=10;
+  if(countTot<=0)countTot=0;
   printf("Plazas disponibles = %u\r\n",countTot);
+
 }
 
 
