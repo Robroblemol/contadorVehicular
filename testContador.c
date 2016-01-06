@@ -14,12 +14,18 @@ int  countEnt,//Almacena la cantidad de entradas
      countShow = totalPlaza,
      datoPuerto; //declaro variable para almacenar lo presente en el puerto
 boolean flag_ent=false,//indica si se realizó una entrada
-        flag_sal=false; //indica si se realizó una salida
+        flag_sal=false, //indica si se realizó una salida
+        flag_senE=false,//
+        flag_senS=false;
 #int_RB
 void RB_isr(void) {
   output_toggle (led0);
   datoPuerto= input_b();// leo el puerto b
-   if(bit_test(datoPuerto,4)==1&&bit_test(datoPuerto ,5)==0) flag_ent=true;
+   if(bit_test(datoPuerto,4)==1&&bit_test(datoPuerto ,5)==0&&!flag_senE) flag_senE=true;
+   else if(bit_test(datoPuerto,4)==0&&bit_test(datoPuerto ,5)==1) flag_senE=false;
+   if(bit_test(datoPuerto,4)==1&&bit_test(datoPuerto ,5)==1&&flag_senE) flag_ent=true;
+   if(bit_test(datoPuerto,4)==1&&bit_test(datoPuerto ,5)==1&&!flag_senE) flag_sal=true;
+
    if(bit_test(datoPuerto,6)==1&&bit_test(datoPuerto,7)==0) flag_sal=true;
 }
 
@@ -32,7 +38,6 @@ void RB_isr(void) {
   if(countTot>totalPlaza)countTot=totalPlaza;
   printf("Contador Total = %u\r\n",countTot);
   printf("Plazas disponibles = %u\r\n",countShow);
-
 }
 
 
