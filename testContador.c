@@ -16,6 +16,8 @@ int  countEnt,//Almacena la cantidad de entradas
      datoPAnt; //declaro variable para almacenar lo presente en el puerto
 boolean flag_ent=false,//indica si se realizó una entrada
         flag_sal=false, //indica si se realizó una salida
+        flag_entS=false,
+        flag_salS=false,
         flag_senE=false,//
         flag_senS=false;
 #int_RB
@@ -34,13 +36,13 @@ void RB_isr(void) {
   }
 if(bit_test(datoPAnt,6)!=bit_test(datoPuerto,6)||bit_test(datoPAnt,7)!=bit_test(datoPuerto,7)){
       if(bit_test(datoPuerto,6)==1&&bit_test(datoPuerto,7)==0)
-      flag_senS=true;
+        flag_senS=true;
       if(bit_test(datoPuerto,6)==0&&bit_test(datoPuerto,7)==1)
-       flag_senS=false;
-      if(bit_test(datoPuerto,6)==0&&bit_test(datoPuerto,7)==0&&!flag_senS){
-       flag_sal=true;
-       flag_senS=false;
-     }
+        flag_senS=false;
+      if(bit_test(datoPuerto,6)==0&&bit_test(datoPuerto,7)==0&&!flag_senS)
+        flag_entS=true;
+      if(bit_test(datoPuerto,6)==0&&bit_test(datoPuerto ,7)==0&&flag_senS)
+        flag_salS=true;
  }
    datoPAnt=datoPuerto;
 }
@@ -85,6 +87,19 @@ void main()
      //printf("Dato contador salida = %u\r\n",countSal);
      flag_sal=False;
      plazas_disponibles(true);
+   }
+//<<<<<<<<<<<<<<<<<<<<<<< carril salida >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+   if(flag_entS==true && bit_test(datoPuerto ,6)==1&&bit_test(datoPuerto ,7)==0){
+     countEnt++;
+     //printf("Dato contador entrada = %u\r\n",countEnt);
+     flag_entS=False;
+     plazas_disponibles(true);
+   }
+   if (flag_salS==true&&bit_test(datoPuerto ,7)==1&&bit_test(datoPuerto ,6)==0){
+     countSal++;
+     //printf("Dato contador salida = %u\r\n",countSal);
+     flag_salS=False;
+     plazas_disponibles(false);
    }
   }
 }
