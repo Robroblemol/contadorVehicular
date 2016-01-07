@@ -74,13 +74,13 @@ void main()
 
   while (true){
     datoPuerto= input_b();// leo el puerto b
-   if(flag_ent==true && bit_test(datoPuerto ,4)==1){
+   if(flag_ent==true && bit_test(datoPuerto ,4)==1&&bit_test(datoPuerto ,5)==0){
      countEnt++;
      //printf("Dato contador entrada = %u\r\n",countEnt);
      flag_ent=False;
      plazas_disponibles(false);
    }
-   if (flag_sal==true&&bit_test(datoPuerto ,5)==1){
+   if (flag_sal==true&&bit_test(datoPuerto ,5)==1&&bit_test(datoPuerto ,4)==0){
      countSal++;
      //printf("Dato contador salida = %u\r\n",countSal);
      flag_sal=False;
