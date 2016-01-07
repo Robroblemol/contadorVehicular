@@ -12,7 +12,8 @@ signed long countTot = totalPlaza;//la cantidad inicial de plazas disponibles
 int  countEnt,//Almacena la cantidad de entradas
      countSal,//Almacena la cantidad de salidas
      countShow = totalPlaza,
-     datoPuerto; //declaro variable para almacenar lo presente en el puerto
+     datoPuerto,
+     datoPAnt; //declaro variable para almacenar lo presente en el puerto
 boolean flag_ent=false,//indica si se realizó una entrada
         flag_sal=false, //indica si se realizó una salida
         flag_senE=false,//
@@ -21,24 +22,27 @@ boolean flag_ent=false,//indica si se realizó una entrada
 void RB_isr(void) {
   output_toggle (led0);
   datoPuerto= input_b();// leo el puerto b
-   if(bit_test(datoPuerto,4)==1&&bit_test(datoPuerto ,5)==0)
-   flag_senE=true;
-   if(bit_test(datoPuerto,4)==0&&bit_test(datoPuerto ,5)==1)
-   flag_senE=false;
-   if(bit_test(datoPuerto,4)==0&&bit_test(datoPuerto ,5)==0&&!flag_senE)
-   flag_ent=true;
-   if(bit_test(datoPuerto,4)==0&&flag_senE)
-   flag_sal=true;
-
-
-   if(bit_test(datoPuerto,6)==1&&bit_test(datoPuerto,7)==0)
-    flag_senS=true;
-    if(bit_test(datoPuerto,6)==0&&bit_test(datoPuerto,7)==1)
-     flag_senS=false;
-  if(bit_test(datoPuerto,6)==0&&bit_test(datoPuerto,7)==0&&!flag_senS){
+  if(bit_test(datoPAnt,4)!=bit_test(datoPuerto,4)||bit_test(datoPAnt,5)!=bit_test(datoPuerto,5)){
+     if(bit_test(datoPuerto,4)==1&&bit_test(datoPuerto ,5)==0)
+     flag_senE=true;
+     if(bit_test(datoPuerto,4)==0&&bit_test(datoPuerto ,5)==1)
+     flag_senE=false;
+     if(bit_test(datoPuerto,4)==0&&bit_test(datoPuerto ,5)==0&&!flag_senE)
+     flag_ent=true;
+     if(bit_test(datoPuerto,4)==0&&bit_test(datoPuerto ,5)==0&&flag_senE)
      flag_sal=true;
-     flag_senS=false;
-   }
+  }
+if(bit_test(datoPAnt,6)!=bit_test(datoPuerto,6)||bit_test(datoPAnt,7)!=bit_test(datoPuerto,7)){
+      if(bit_test(datoPuerto,6)==1&&bit_test(datoPuerto,7)==0)
+      flag_senS=true;
+      if(bit_test(datoPuerto,6)==0&&bit_test(datoPuerto,7)==1)
+       flag_senS=false;
+      if(bit_test(datoPuerto,6)==0&&bit_test(datoPuerto,7)==0&&!flag_senS){
+       flag_sal=true;
+       flag_senS=false;
+     }
+ }
+   datoPAnt=datoPuerto;
 }
 
  void plazas_disponibles(boolean flag_count) {
@@ -76,7 +80,7 @@ void main()
      flag_ent=False;
      plazas_disponibles(false);
    }
-   if (flag_sal==true&&(bit_test(datoPuerto ,5)==1||bit_test(datoPuerto ,6)==1)){
+   if (flag_sal==true&&bit_test(datoPuerto ,5)==1){
      countSal++;
      //printf("Dato contador salida = %u\r\n",countSal);
      flag_sal=False;
