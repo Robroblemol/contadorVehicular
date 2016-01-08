@@ -101,5 +101,14 @@ void main()
      flag_salS=False;
      plazas_disponibles(false);
    }
+//<<<<<<<<<<<<<<<<<<<<<<<<< botones de ajuste >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+   if(input(b_mas)==0){
+     delay_ms(500);
+     plazas_disponibles(false);
+   }
+   if (input(b_men)==0) {
+    delay_ms(500);
+    plazas_disponibles(true);
+   }
   }
 }

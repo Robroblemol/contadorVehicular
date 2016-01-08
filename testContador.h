@@ -18,3 +18,5 @@
 #use rs232(baud=9600,parity=N,xmit=PIN_A1,rcv=PIN_A2,bits=8)
 
 #define led0 pin_A0
+#define b_mas pin_a3
+#define b_men pin_a4
