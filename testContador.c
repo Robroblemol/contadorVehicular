@@ -7,11 +7,9 @@
     +pe para mantener la ventana abierta si hay un error en la compilacion
     ejemplo: ccsc +df +p testContador // compila el preoyecto
 */
-int const totalPlaza =10;//cantidad total de plazas
-signed long countTot = totalPlaza;//la cantidad inicial de plazas disponibles
-int  countEnt,//Almacena la cantidad de entradas
-     countSal,//Almacena la cantidad de salidas
-     countShow = totalPlaza,
+int totalPlaza =10;//cantidad total de plazas
+signed long countTot;//la cantidad inicial de plazas disponibles
+int  countShow,
      datoPuerto,
      datoPAnt; //declaro variable para almacenar lo presente en el puerto
 boolean flag_ent=false,//indica si se realizó una entrada
@@ -54,6 +52,7 @@ if(bit_test(datoPAnt,6)!=bit_test(datoPuerto,6)||bit_test(datoPAnt,7)!=bit_test(
   if (countTot<=totalPlaza)countShow=countTot;
   if(countTot<0)countShow=0;
   if(countTot>totalPlaza)countTot=totalPlaza;
+  write_eeprom(l_Pdis,countTot);
   printf("Contador Total = %u\r\n",countTot);
   printf("Plazas disponibles = %u\r\n",countShow);
 }
@@ -74,29 +73,56 @@ void main()
    enable_interrupts(GLOBAL);
    setup_oscillator(False);
 
+//<<<<<<<<<<<<<<<<<<<<<<<<<<configuracion plazas totales>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  if(!input(b_men)&&!input(b_mas)){
+    delay_ms(250);
+    output_high (led0);
+
+    while (!input(b_men)&&!input(b_mas)){}
+
+    while (true) {
+      if (input(b_men)==0) {
+        while(!input(b_men)){}//no ejecuata hasta soltar el boton
+        totalPlaza--;
+        write_eeprom(Ep_Max,totalPlaza);
+        printf("max plazas ajustado a: = %u\r\n",totalPlaza);
+      }
+      if (input(b_mas)==0) {
+        while(!input(b_mas)){}//no ejecuata hasta soltar el boton
+        totalPlaza++;
+        write_eeprom(Ep_Max,totalPlaza);
+        printf("max plazas ajustado a: = %u\r\n",totalPlaza);
+      }
+    }
+
+  }
+
+  totalPlaza=read_eeprom(Ep_Max);
+  countTot=read_eeprom(l_Pdis);
+  countShow=read_eeprom(l_Pdis);
+
+  printf("Contador Total = %u\r\n",countTot);
+  printf("Plazas disponibles = %u\r\n",countShow);
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>bucle principal<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   while (true){
     datoPuerto= input_b();// leo el puerto b
    if(flag_ent==true && bit_test(datoPuerto ,4)==1&&bit_test(datoPuerto ,5)==0){
-     countEnt++;
      //printf("Dato contador entrada = %u\r\n",countEnt);
      flag_ent=False;
      plazas_disponibles(false);
    }
    if (flag_sal==true&&bit_test(datoPuerto ,5)==1&&bit_test(datoPuerto ,4)==0){
-     countSal++;
      //printf("Dato contador salida = %u\r\n",countSal);
      flag_sal=False;
      plazas_disponibles(true);
    }
 //<<<<<<<<<<<<<<<<<<<<<<< carril salida >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
    if(flag_entS==true && bit_test(datoPuerto ,6)==1&&bit_test(datoPuerto ,7)==0){
-     countEnt++;
      //printf("Dato contador entrada = %u\r\n",countEnt);
      flag_entS=False;
      plazas_disponibles(true);
    }
    if (flag_salS==true&&bit_test(datoPuerto ,7)==1&&bit_test(datoPuerto ,6)==0){
-     countSal++;
      //printf("Dato contador salida = %u\r\n",countSal);
      flag_salS=False;
      plazas_disponibles(false);

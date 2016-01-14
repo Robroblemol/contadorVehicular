@@ -20,3 +20,5 @@
 #define led0 pin_A0
 #define b_mas pin_a3
 #define b_men pin_a4
+#define Ep_Max 0
+#define l_Pdis 1 
