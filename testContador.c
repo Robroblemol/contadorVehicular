@@ -6,17 +6,22 @@
     +p mantiene la centana del compilador abierta (sirve para ver errores)
     +pe para mantener la ventana abierta si hay un error en la compilacion
     ejemplo: ccsc +df +p testContador // compila el preoyecto
+
+
+    problemas al inicio de conteo EEPROM vacia igual a 255 lo que hace que el
+    valor inicial de las plaza sea 255, para que funcione bien es necesario
+    ajustar primero el numero de plazas_disponibles 
 */
 int totalPlaza =10;//cantidad total de plazas
 signed long countTot;//la cantidad inicial de plazas disponibles
-int  countShow,
-     datoPuerto,
+int  countShow,//variable a mostrar
+     datoPuerto,//dato actual en el puerto
      datoPAnt; //declaro variable para almacenar lo presente en el puerto
 boolean flag_ent=false,//indica si se realizó una entrada
         flag_sal=false, //indica si se realizó una salida
         flag_entS=false,
         flag_salS=false,
-        flag_senE=false,//
+        flag_senE=false,
         flag_senS=false;
 #int_RB
 void RB_isr(void) {
